@@ -1,0 +1,89 @@
+{
+  "port": 8081,
+  "protocol": "http",
+  "name": "kubutilization API Stubs - /api/v1/pod/**/*",
+  "recordRequests": "true",
+  "defaultResponse": {
+    "statusCode": 400,
+    "body": "Bad Request",
+    "headers": {}
+  },
+  "stubs": [
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/pods"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "pods": [
+                {
+                  "name": "podA"
+                },
+                {
+                  "name": "podB"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/pods/podA"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "name": "podA"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/pods/podB"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "name": "podB"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
