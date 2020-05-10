@@ -2,6 +2,9 @@
 # Created by https://www.gitignore.io/api/go,vue,node,vuejs
 # Edit at https://www.gitignore.io/?templates=go,vue,node,vuejs
 
+# IDEA
+.idea
+
 ### Go ###
 # Binaries for programs and plugins
 *.exe
@@ -9,6 +12,9 @@
 *.dll
 *.so
 *.dylib
+
+# Ignore downloaded
+/api/pkg/mod
 
 # Test binary, built with `go test -c`
 *.test
