@@ -11,3 +11,12 @@ func GetNodes(c *gin.Context) {
 		"Status": "OK",
 	})
 }
+
+// GetNode ... get basic node data from input parameter
+func GetNode(c *gin.Context) {
+	node := c.Param("node")
+	c.JSON(http.StatusOK, gin.H{
+		"Status":       "Ok",
+		"selectedNode": node,
+	})
+}

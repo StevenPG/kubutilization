@@ -9,7 +9,7 @@ import (
 )
 
 // GinContext ... Returns a gin context for usage by caller
-func GinEngine(clientset *kubernetes.Clientset) *gin.Engine {
+func GinRouter(clientset *kubernetes.Clientset) *gin.Engine {
 	ginEngine := gin.Default()
 
 	ginEngine.Use(kubeContextMiddleware(*clientset))

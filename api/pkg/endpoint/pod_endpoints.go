@@ -11,3 +11,11 @@ func GetPods(c *gin.Context) {
 		"Status": "OK",
 	})
 }
+
+func GetPod(c *gin.Context) {
+	pod := c.Param("pod")
+	c.JSON(http.StatusOK, gin.H{
+		"Status":      "OK",
+		"selectedPod": pod,
+	})
+}

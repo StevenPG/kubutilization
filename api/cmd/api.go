@@ -25,9 +25,9 @@ func registerEndpoints(engine *gin.Engine) {
 // main ... application entrypoint
 func main() {
 	if *parseFlagUseExternalConnection() {
-		httpEngine := middleware.GinEngine(client.ExternalConnection())
-		registerEndpoints(httpEngine)
-		httpEngine.Run(":8080")
+		ginRouter := middleware.GinRouter(client.ExternalConnection())
+		registerEndpoints(ginRouter)
+		ginRouter.Run(":8080")
 	} else {
 		client.Connection()
 	}
