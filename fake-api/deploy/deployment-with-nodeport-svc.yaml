@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kubutilization
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubutilization-mountebank
+  namespace: kubutilization
+  labels:
+    app: kubutil-mountebank
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubutil-mountebank
+  template:
+    metadata:
+      labels:
+        app: kubutil-mountebank
+    spec:
+      containers:
+        - name: mountebank
+          image: sgantz/kubutilization-mountebank:0.1
+          ports:
+            - containerPort: 2525
+            - containerPort: 8080
+            - containerPort: 8081
+          resources:
+            requests:
+              memory: "15Mi"
+              cpu: "5m"
+            limits:
+              memory: "25Mi"
+              cpu: "50m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubutilization-mountebank-svc
+  namespace: kubutilization
+  labels:
+    app: kubutil-mountebank
+spec:
+  type: NodePort
+  ports:
+    - port: 2525
+      targetPort: 2525
+      protocol: TCP
+      name: home
+    - port: 8080
+      protocol: TCP
+      name: nodes
+    - port: 8081
+      protocol: TCP
+      name: pods
+  selector:
+    app: kubutil-mountebank
