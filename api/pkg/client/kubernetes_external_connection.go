@@ -31,5 +31,4 @@ func ExternalConnection() *kubernetes.Clientset {
 	}
 
 	return clientset
-
 }
