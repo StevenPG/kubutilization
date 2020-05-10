@@ -7,8 +7,10 @@ import (
 
 // GetNodes ... returns basic node data in JSON format
 func GetPods(c *gin.Context) {
+	namespace := c.DefaultQuery("namespace", "")
 	c.JSON(http.StatusOK, gin.H{
 		"Status": "OK",
+		"test":   namespace,
 	})
 }
 
