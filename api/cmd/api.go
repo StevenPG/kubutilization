@@ -16,10 +16,11 @@ func parseFlagUseExternalConnection() *bool {
 
 func main() {
 	if *parseFlagUseExternalConnection() {
-		server := middleware.GinEngine(client.ExternalConnection())
-		endpoint.RegisterNodeEndpoints(server)
-		endpoint.RegisterPodEndpoints(server)
-		server.Run(":8080")
+		httpEngine := middleware.GinEngine(client.ExternalConnection())
+		endpoint.RegisterUtilityEndpoints(httpEngine)
+		endpoint.RegisterNodeEndpoints(httpEngine)
+		endpoint.RegisterPodEndpoints(httpEngine)
+		httpEngine.Run(":8080")
 	} else {
 		client.Connection()
 	}
