@@ -1,0 +1,1 @@
+go tool cover -html ./cp.out
