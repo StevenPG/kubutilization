@@ -1,2 +1,28 @@
 # kubutilization
-A small and fast dashboard for kubernetes that provides a front-end for node and pod utilization at a namespace context using the kubernetes metrics-server.
+A simple dashboard for kubernetes that provides a front-end UI for node and pod utilization at 
+a namespace level using the [kubernetes metrics-server](https://github.com/kubernetes-sigs/metrics-server).
+
+## Purpose
+
+Many Kubernetes dashboarding tools hide true utilization of 
+pods behind multiple menus or in seperate UI dashboards (eg. Grafana)
+
+This application is lightweight to run, simple to deploy and provides
+a very simple view of current utilization that can be provided to users
+without access to kubectl for a simple way to demonstrate current usage across nodes and pods!
+
+## Deploying
+
+### Resource Requirements
+
+## Contributing
+
+### Building
+
+### API Testing
+
+### API Mocking for UI Testing
+
+## License
+
+[MIT LICENSE](./LICENSE)
