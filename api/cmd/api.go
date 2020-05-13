@@ -22,7 +22,7 @@ func registerEndpoints(engine *gin.Engine) {
 	endpoint.RegisterPodEndpoints(engine)
 }
 
-// main ... application entrypoint
+// main ... application entry point
 func main() {
 	if *parseFlagUseExternalConnection() {
 		ginRouter := middleware.GinRouter(client.ExternalConnection())
