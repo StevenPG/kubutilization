@@ -15,9 +15,17 @@ func MetricsRoot(c *gin.Context) {
 	marshalAndSetJson(c, data)
 }
 
-func NodesEndpoint(c *gin.Context) {
+// NodesRoot ... Return the nodes endpoint
+func NodesRoot(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/nodes").DoRaw(context.TODO())
+	marshalAndSetJson(c, data)
+}
+
+// PodsRoot ... Return pods metrics endpoint
+func PodsRoot(c *gin.Context) {
+	connection := c.MustGet("clientset").(kubernetes.Clientset)
+	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/pods").DoRaw(context.TODO())
 	marshalAndSetJson(c, data)
 }
 

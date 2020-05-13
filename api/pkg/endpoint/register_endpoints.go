@@ -10,7 +10,8 @@ func RegisterUtilityEndpoints(gin *gin.Engine) {
 // RegisterMetricsEndpoints ... return the root of the metrics endpoint
 func RegisterMetricsEndpoints(gin *gin.Engine) {
 	gin.GET("/api/v1/metrics", MetricsRoot)
-	gin.GET("/api/v1/metrics/nodes", NodesEndpoint)
+	gin.GET("/api/v1/metrics/nodes", NodesRoot)
+	gin.GET("/api/v1/metrics/pods", PodsRoot)
 }
 
 // RegisterNodeEndpoints ... receive gin engine, apply node endpoints
