@@ -10,7 +10,7 @@ import (
 
 /**
 * metrics_endpoint.go
-* Contains all root metrics endpoints
+* Contains all metrics endpoints
 *
 * Capabilities
 - [X] Provide metrics root at apis/metrics.k8s.io/v1beta1

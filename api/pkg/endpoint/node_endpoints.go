@@ -8,6 +8,15 @@ import (
 	"net/http"
 )
 
+/**
+* node_endpoints.go
+* Contains all node endpoints
+*
+* Capabilities
+- [X] Return all nodes in cluster
+- [X] Return specific node from cluster
+*/
+
 // GetNodes ... returns basic node data in JSON format
 func GetNodes(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)

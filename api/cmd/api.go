@@ -19,6 +19,7 @@ func parseFlagUseExternalConnection() *bool {
 func registerEndpoints(engine *gin.Engine) {
 	endpoint.RegisterUtilityEndpoints(engine)
 	endpoint.RegisterMetricsEndpoints(engine)
+	endpoint.RegisterNamespaceEndpoints(engine)
 	endpoint.RegisterNodeEndpoints(engine)
 	endpoint.RegisterPodEndpoints(engine)
 }

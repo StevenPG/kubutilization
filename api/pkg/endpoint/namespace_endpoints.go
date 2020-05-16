@@ -8,7 +8,16 @@ import (
 	"net/http"
 )
 
-// GetNodes ... returns basic node data in JSON format
+/**
+* namespace_endpoints.go
+* Contains all namespace endpoints
+*
+* Capabilities
+- [X] Return all namespaces from kubernetes API
+- [X] Return content for individual namespace
+*/
+
+// GetNamespaces ... return all namespaces in cluster
 func GetNamespaces(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	namespaces, _ := connection.CoreV1().Namespaces().List(context.TODO(), metav1.ListOptions{})
@@ -17,7 +26,7 @@ func GetNamespaces(c *gin.Context) {
 	})
 }
 
-// GetNode ... get basic node data from input parameter
+// GetNamespace ... return namespace data from specific input namespace
 func GetNamespace(c *gin.Context) {
 	namespaceParam := c.Param("namespace")
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
