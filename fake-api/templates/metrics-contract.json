@@ -26,14 +26,457 @@
               "Content-Type": "application/json"
             },
             "body": {
-              "nodes": [
-                {
-                  "name": "node1"
-                },
-                {
-                  "name": "node2"
+              "result": {
+                "apiVersion": "v1",
+                "groupVersion": "metrics.k8s.io/v1beta1",
+                "kind": "APIResourceList",
+                "resources": [
+                  {
+                    "kind": "NodeMetrics",
+                    "name": "nodes",
+                    "namespaced": false,
+                    "singularName": "",
+                    "verbs": [
+                      "get",
+                      "list"
+                    ]
+                  },
+                  {
+                    "kind": "PodMetrics",
+                    "name": "pods",
+                    "namespaced": true,
+                    "singularName": "",
+                    "verbs": [
+                      "get",
+                      "list"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/metrics/pods"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "result": {
+                "apiVersion": "metrics.k8s.io/v1beta1",
+                "items": [
+                  {
+                    "containers": [
+                      {
+                        "name": "nginx",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1520Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "nginx-5578584966-p2md4",
+                      "namespace": "default",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods/nginx-5578584966-p2md4"
+                    },
+                    "timestamp": "2020-05-16T21:51:58Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "item2",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1536Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "item2-668458bb59-vb95v",
+                      "namespace": "testing-quotas",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/testing-quotas/pods/item2-668458bb59-vb95v"
+                    },
+                    "timestamp": "2020-05-16T21:51:53Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "lb-port-80",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "724Ki"
+                        }
+                      },
+                      {
+                        "name": "lb-port-443",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "816Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "svclb-traefik-mfkkb",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/svclb-traefik-mfkkb"
+                    },
+                    "timestamp": "2020-05-16T21:51:53Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "item1",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1556Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "item1-78dc5874f7-8nwvx",
+                      "namespace": "testing-quotas",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/testing-quotas/pods/item1-78dc5874f7-8nwvx"
+                    },
+                    "timestamp": "2020-05-16T21:51:53Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "cert-manager",
+                        "usage": {
+                          "cpu": "5870353n",
+                          "memory": "10924Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "cert-manager-cainjector-85fbdf788-hllxl",
+                      "namespace": "cert-manager",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/cert-manager/pods/cert-manager-cainjector-85fbdf788-hllxl"
+                    },
+                    "timestamp": "2020-05-16T21:52:09Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "local-path-provisioner",
+                        "usage": {
+                          "cpu": "16272269n",
+                          "memory": "6316Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "local-path-provisioner-58fb86bdfd-9pvnj",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/local-path-provisioner-58fb86bdfd-9pvnj"
+                    },
+                    "timestamp": "2020-05-16T21:52:08Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "coredns",
+                        "usage": {
+                          "cpu": "5046640n",
+                          "memory": "11236Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "coredns-6c6bb68b64-cm7zm",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/coredns-6c6bb68b64-cm7zm"
+                    },
+                    "timestamp": "2020-05-16T21:52:05Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "dashboard-metrics-scraper",
+                        "usage": {
+                          "cpu": "170458n",
+                          "memory": "6216Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "dashboard-metrics-scraper-c79c65bb7-tb8hc",
+                      "namespace": "kubernetes-dashboard",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kubernetes-dashboard/pods/dashboard-metrics-scraper-c79c65bb7-tb8hc"
+                    },
+                    "timestamp": "2020-05-16T21:52:09Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "kubernetes-dashboard",
+                        "usage": {
+                          "cpu": "4423906n",
+                          "memory": "7216Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "kubernetes-dashboard-88ff7f489-gsn7d",
+                      "namespace": "kubernetes-dashboard",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kubernetes-dashboard/pods/kubernetes-dashboard-88ff7f489-gsn7d"
+                    },
+                    "timestamp": "2020-05-16T21:52:01Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "traefik",
+                        "usage": {
+                          "cpu": "5661328n",
+                          "memory": "13044Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "traefik-7b8b884c8-zl8jm",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/traefik-7b8b884c8-zl8jm"
+                    },
+                    "timestamp": "2020-05-16T21:52:01Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "metrics-server",
+                        "usage": {
+                          "cpu": "1939545n",
+                          "memory": "14316Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "metrics-server-6ffdb54684-sbjxk",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/metrics-server-6ffdb54684-sbjxk"
+                    },
+                    "timestamp": "2020-05-16T21:52:04Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "nginx",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1504Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "nginx-5578584966-4kt4w",
+                      "namespace": "default",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/default/pods/nginx-5578584966-4kt4w"
+                    },
+                    "timestamp": "2020-05-16T21:52:06Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "cert-manager",
+                        "usage": {
+                          "cpu": "5858911n",
+                          "memory": "13732Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "cert-manager-754d9b75d9-q7wnb",
+                      "namespace": "cert-manager",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/cert-manager/pods/cert-manager-754d9b75d9-q7wnb"
+                    },
+                    "timestamp": "2020-05-16T21:52:02Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "cert-manager",
+                        "usage": {
+                          "cpu": "289042776n",
+                          "memory": "13640Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "cert-manager-webhook-76f9b64b45-r4tl4",
+                      "namespace": "cert-manager",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/cert-manager/pods/cert-manager-webhook-76f9b64b45-r4tl4"
+                    },
+                    "timestamp": "2020-05-16T21:52:07Z",
+                    "window": "30s"
+                  },
+                  {
+                    "containers": [
+                      {
+                        "name": "lb-port-80",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1680Ki"
+                        }
+                      },
+                      {
+                        "name": "lb-port-443",
+                        "usage": {
+                          "cpu": "0",
+                          "memory": "1744Ki"
+                        }
+                      }
+                    ],
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:52:48Z",
+                      "name": "svclb-traefik-qpzvk",
+                      "namespace": "kube-system",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/namespaces/kube-system/pods/svclb-traefik-qpzvk"
+                    },
+                    "timestamp": "2020-05-16T21:51:50Z",
+                    "window": "30s"
+                  }
+                ],
+                "kind": "PodMetricsList",
+                "metadata": {
+                  "selfLink": "/apis/metrics.k8s.io/v1beta1/pods"
                 }
-              ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/metrics/nodes"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "result": {
+                "apiVersion": "metrics.k8s.io/v1beta1",
+                "items": [
+                  {
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:53:37Z",
+                      "name": "raspberrypi",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/raspberrypi"
+                    },
+                    "timestamp": "2020-05-16T21:53:02Z",
+                    "usage": {
+                      "cpu": "746320889n",
+                      "memory": "1148140Ki"
+                    },
+                    "window": "30s"
+                  },
+                  {
+                    "metadata": {
+                      "creationTimestamp": "2020-05-16T21:53:37Z",
+                      "name": "tyr1-p151emx",
+                      "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/tyr1-p151emx"
+                    },
+                    "timestamp": "2020-05-16T21:53:07Z",
+                    "usage": {
+                      "cpu": "173773747n",
+                      "memory": "12987472Ki"
+                    },
+                    "window": "30s"
+                  }
+                ],
+                "kind": "NodeMetricsList",
+                "metadata": {
+                  "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/metrics/nodes/raspberrypi"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "result": {
+                "apiVersion": "metrics.k8s.io/v1beta1",
+                "kind": "NodeMetrics",
+                "metadata": {
+                  "creationTimestamp": "2020-05-16T21:54:11Z",
+                  "name": "raspberrypi",
+                  "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/raspberrypi"
+                },
+                "timestamp": "2020-05-16T21:53:02Z",
+                "usage": {
+                  "cpu": "746320889n",
+                  "memory": "1148140Ki"
+                },
+                "window": "30s"
+              }
             }
           }
         }
