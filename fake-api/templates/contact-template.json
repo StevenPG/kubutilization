@@ -1,7 +1,7 @@
 {
-  "port": 8081,
+  "port": ----,
   "protocol": "http",
-  "name": "kubutilization API Stubs - /api/v1/pod/**/*",
+  "name": "kubutilization API Stubs - name",
   "recordRequests": "true",
   "defaultResponse": {
     "statusCode": 400,
@@ -14,7 +14,7 @@
         {
           "equals": {
             "method": "GET",
-            "path": "/api/v1/pods"
+            "path": "/api/v1/---"
           }
         }
       ],
@@ -26,14 +26,7 @@
               "Content-Type": "application/json"
             },
             "body": {
-              "pods": [
-                {
-                  "name": "podA"
-                },
-                {
-                  "name": "podB"
-                }
-              ]
+
             }
           }
         }
