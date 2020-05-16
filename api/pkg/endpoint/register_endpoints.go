@@ -11,7 +11,13 @@ func RegisterUtilityEndpoints(gin *gin.Engine) {
 func RegisterMetricsEndpoints(gin *gin.Engine) {
 	gin.GET("/api/v1/metrics", MetricsRoot)
 	gin.GET("/api/v1/metrics/nodes", NodesRoot)
+	gin.GET("/api/v1/metrics/nodes/:node", SpecificNode)
 	gin.GET("/api/v1/metrics/pods", PodsRoot)
+
+}
+
+func RegisterNamespaceEndpoints(gin *gin.Engine) {
+	gin.GET("/api/v1/namespaces")
 }
 
 // RegisterNodeEndpoints ... receive gin engine, apply node endpoints
