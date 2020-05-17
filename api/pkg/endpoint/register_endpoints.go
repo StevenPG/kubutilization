@@ -16,6 +16,8 @@ func RegisterMetricsEndpoints(gin *gin.Engine) {
 	gin.GET("/api/v1/metrics/nodes/:node", SpecificNode)
 	gin.GET("/api/v1/metrics/pods", PodsRoot)
 
+	//gin.GET("/api/v1/metrics/ts/nodes", "")
+
 }
 
 func RegisterNamespaceEndpoints(gin *gin.Engine) {

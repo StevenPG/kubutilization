@@ -30,12 +30,16 @@ func registerEndpoints(engine *gin.Engine) {
 func main() {
 	useExternal, enableTS := parseInputFlags()
 	if *useExternal {
-		client := client.ExternalConnection()
-		ginRouter := middleware.GinRouter(client)
+		connection := client.ExternalConnection()
+
+		redisClient := client.RedisClient()
+		redisTSClient := client.RedisTSClient()
+
+		ginRouter := middleware.GinRouter(connection, redisClient, redisTSClient)
 		registerEndpoints(ginRouter)
 
 		if *enableTS {
-			writes.StartNodeWrites(client)
+			writes.StartNodeWrites(connection, redisClient, redisTSClient)
 		}
 
 		ginRouter.Run(":8080")

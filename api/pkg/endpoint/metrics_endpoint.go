@@ -18,6 +18,9 @@ import (
 - [ ] Provide metrics for pods in supplied namespace
 - [X] Provide metrics for pods across all namespaces
 - [ ] Provide metrics for a specific pod within a given namespace
+
+- [ ] Return all historical metrics from Redis for node utilization data
+- [ ] Return all historical metrics from Redis for pod utilization data
 */
 
 // MetricsRoot ... Returns the JSON result of hitting the kubernetes metrics-server root endpoint

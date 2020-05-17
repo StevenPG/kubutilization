@@ -4,28 +4,24 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	redistimeseries "github.com/RedisTimeSeries/redistimeseries-go"
 	"github.com/go-redis/redis/v7"
 	"github.com/stevenpg/kubutilization/api/pkg/timeseries/models"
 	"k8s.io/client-go/kubernetes"
+	"strconv"
+	"strings"
 	"time"
 )
 
-var (
-	// Utilized to generate unique IDs for node writes
-	counter = 0
-)
-
 // PollAndPushMetrics ... wait every N seconds and push metrics
-func PollAndPushMetrics(clientset *kubernetes.Clientset) {
-	redisConnection := metricsInitHelper()
-	// TODO - Handle redis connection failed, don't crash
-	// just output error and ignore
+func PollAndPushMetrics(clientset *kubernetes.Clientset, redisConnection *redis.Client, timeSeriesConnection *redistimeseries.Client) {
 
 	var unlimitedRuntime = true
 	for ok := true; ok; ok = unlimitedRuntime {
 
 		// TODO - make time configurable via Viper config file
-		time.Sleep(30 * time.Second)
+		//time.Sleep(30 * time.Second)
+		time.Sleep(5 * time.Second)
 		redisConnection.Ping()
 
 		data, _ := clientset.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/nodes").DoRaw(context.TODO())
@@ -33,7 +29,7 @@ func PollAndPushMetrics(clientset *kubernetes.Clientset) {
 
 		json.Unmarshal(data, &rawMetrics)
 		redisEntities := buildEntities(rawMetrics)
-		writeEntities(redisConnection, redisEntities)
+		writeEntities(timeSeriesConnection, redisEntities)
 	}
 }
 
@@ -55,24 +51,66 @@ func buildEntities(metrics models.NodeMetrics) []models.NodeMetricsEntity {
 }
 
 // Receives a list of Redis entities to convert
-func writeEntities(connection *redis.Client, entities []models.NodeMetricsEntity) {
+func writeEntities(connection *redistimeseries.Client, entities []models.NodeMetricsEntity) {
+	CheckAndInitTSKeys(connection, entities)
 	for i := range entities {
-		counter += 1
-		entityKey := fmt.Sprintf("%s:%s:%d", entities[i].MetricsType, entities[i].Name, counter)
+		cpuEntityKey := generateCpuKey(entities[i].MetricsType, entities[i].Name)
+		memEntityKey := generateMemKey(entities[i].MetricsType, entities[i].Name)
 
 		jsonEntity, _ := json.Marshal(entities[i])
 		// TODO - set global duration configuration property, default 6h
-		connection.Set(entityKey, string(jsonEntity), time.Duration(time.Duration.Hours(6)))
+
+		fmt.Println(fmt.Sprintf("Writing cpu metrics for -> %s", cpuEntityKey))
+		fmt.Println(fmt.Sprintf("Writing mem metrics for -> %s", memEntityKey))
+
+		cpuUsage := strings.TrimSuffix(entities[i].Usage.CPU, "n")
+		memUsage := strings.TrimSuffix(entities[i].Usage.Memory, "Ki")
+
+		cpuAsFloat, err := strconv.ParseFloat(cpuUsage, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+		memAsFloat, err := strconv.ParseFloat(memUsage, 64)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		connection.AddAutoTs(cpuEntityKey, cpuAsFloat)
+		connection.AddAutoTs(memEntityKey, memAsFloat)
+
+		fmt.Println(string(jsonEntity))
 	}
 }
 
-// Helper method that instantiates Redis client connection
-func metricsInitHelper() *redis.Client {
-	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
+// CheckAndInitKeys ... Receives a redis time series connection, verifies and creates keys if they don't exist
+func CheckAndInitTSKeys(connection *redistimeseries.Client, entities []models.NodeMetricsEntity) {
+	for i := range entities {
+		cpuEntityKey := generateCpuKey(entities[i].MetricsType, entities[i].Name)
+		_, cpuIsPresent := connection.Info(cpuEntityKey)
+		if cpuIsPresent != nil {
+			// TODO - make timeouts configurable
+			connection.CreateKeyWithOptions(cpuEntityKey, redistimeseries.CreateOptions{RetentionMSecs: 6 * time.Hour})
+			connection.CreateKeyWithOptions(cpuEntityKey+"_avg", redistimeseries.CreateOptions{RetentionMSecs: 6 * time.Hour})
+			connection.CreateRule(cpuEntityKey, redistimeseries.AvgAggregation, 60, cpuEntityKey+"_avg")
+		}
 
-	return client
+		memEntityKey := generateMemKey(entities[i].MetricsType, entities[i].Name)
+		_, memIsPresent := connection.Info(memEntityKey)
+		if memIsPresent != nil {
+			// TODO - make timeouts configurable
+			connection.CreateKeyWithOptions(memEntityKey, redistimeseries.CreateOptions{RetentionMSecs: 6 * time.Hour})
+			connection.CreateKeyWithOptions(memEntityKey+"_avg", redistimeseries.CreateOptions{RetentionMSecs: 6 * time.Hour})
+			connection.CreateRule(memEntityKey, redistimeseries.AvgAggregation, 60, memEntityKey+"_avg")
+		}
+	}
+}
+
+// Helper functions to keep functions aligned when generating CPU key
+func generateCpuKey(metricsType string, name string) string {
+	return fmt.Sprintf("%s:%s:CPU", metricsType, name)
+}
+
+// Helper functions to keep functions aligned when generating Mem key
+func generateMemKey(metricsType string, name string) string {
+	return fmt.Sprintf("%s:%s:Memory", metricsType, name)
 }
