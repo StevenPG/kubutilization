@@ -1,5 +1,5 @@
 {
-  "port": 8080,
+  "port": 8084,
   "protocol": "http",
   "name": "kubutilization API Stubs - /api/v1/node/**/*",
   "recordRequests": "true",
@@ -26,60 +26,650 @@
               "Content-Type": "application/json"
             },
             "body": {
-              "nodes": [
-                {
-                  "name": "node1"
+              "result": {
+                "metadata": {
+                  "selfLink": "/api/v1/nodes",
+                  "resourceVersion": "1086918"
                 },
-                {
-                  "name": "node2"
+                "items": [
+                  {
+                    "metadata": {
+                      "name": "tyr1-p151emx",
+                      "selfLink": "/api/v1/nodes/tyr1-p151emx",
+                      "uid": "6f120a54-1101-4674-a3f0-16019f9c5f44",
+                      "resourceVersion": "1086369",
+                      "creationTimestamp": "2020-05-09T17:33:24Z",
+                      "labels": {
+                        "beta.kubernetes.io/arch": "amd64",
+                        "beta.kubernetes.io/instance-type": "k3s",
+                        "beta.kubernetes.io/os": "linux",
+                        "k3s.io/hostname": "tyr1-p151emx",
+                        "k3s.io/internal-ip": "192.168.2.155",
+                        "kubernetes.io/arch": "amd64",
+                        "kubernetes.io/hostname": "tyr1-p151emx",
+                        "kubernetes.io/os": "linux",
+                        "node-role.kubernetes.io/worker": "ephemeral-worker",
+                        "node.kubernetes.io/instance-type": "k3s"
+                      },
+                      "annotations": {
+                        "flannel.alpha.coreos.com/backend-data": "{\"VtepMAC\":\"c6:f9:e5:8f:60:c9\"}",
+                        "flannel.alpha.coreos.com/backend-type": "vxlan",
+                        "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                        "flannel.alpha.coreos.com/public-ip": "192.168.2.155",
+                        "k3s.io/node-args": "[\"agent\"]",
+                        "k3s.io/node-config-hash": "YZHEIDGC5FNN3YMXJ3Z7DWYAW4UBTVHKXQKRHFSG6BCQRJUCWSKA====",
+                        "k3s.io/node-env": "{\"K3S_DATA_DIR\":\"/var/lib/rancher/k3s/data/6a3098e6644f5f0dbfe14e5efa99bb8fdf60d63cae89fdffd71b7de11a1f1430\",\"K3S_TOKEN\":\"********\",\"K3S_URL\":\"https://192.168.2.187:6443\"}",
+                        "node.alpha.kubernetes.io/ttl": "0",
+                        "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                      },
+                      "finalizers": [
+                        "wrangler.cattle.io/node"
+                      ]
+                    },
+                    "spec": {
+                      "podCIDR": "10.42.1.0/24",
+                      "podCIDRs": [
+                        "10.42.1.0/24"
+                      ],
+                      "providerID": "k3s://tyr1-p151emx"
+                    },
+                    "status": {
+                      "capacity": {
+                        "cpu": "8",
+                        "ephemeral-storage": "114854020Ki",
+                        "hugepages-2Mi": "0",
+                        "memory": "16311988Ki",
+                        "pods": "110"
+                      },
+                      "allocatable": {
+                        "cpu": "8",
+                        "ephemeral-storage": "111729990569",
+                        "hugepages-2Mi": "0",
+                        "memory": "16311988Ki",
+                        "pods": "110"
+                      },
+                      "conditions": [
+                        {
+                          "type": "NetworkUnavailable",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-09T17:34:42Z",
+                          "lastTransitionTime": "2020-05-09T17:34:42Z",
+                          "reason": "FlannelIsUp",
+                          "message": "Flannel is running on this node"
+                        },
+                        {
+                          "type": "MemoryPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:31:00Z",
+                          "lastTransitionTime": "2020-05-16T16:14:30Z",
+                          "reason": "KubeletHasSufficientMemory",
+                          "message": "kubelet has sufficient memory available"
+                        },
+                        {
+                          "type": "DiskPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:31:00Z",
+                          "lastTransitionTime": "2020-05-16T16:14:30Z",
+                          "reason": "KubeletHasNoDiskPressure",
+                          "message": "kubelet has no disk pressure"
+                        },
+                        {
+                          "type": "PIDPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:31:00Z",
+                          "lastTransitionTime": "2020-05-16T16:14:30Z",
+                          "reason": "KubeletHasSufficientPID",
+                          "message": "kubelet has sufficient PID available"
+                        },
+                        {
+                          "type": "Ready",
+                          "status": "True",
+                          "lastHeartbeatTime": "2020-05-16T21:31:00Z",
+                          "lastTransitionTime": "2020-05-16T16:14:30Z",
+                          "reason": "KubeletReady",
+                          "message": "kubelet is posting ready status. AppArmor enabled"
+                        }
+                      ],
+                      "addresses": [
+                        {
+                          "type": "InternalIP",
+                          "address": "192.168.2.155"
+                        },
+                        {
+                          "type": "Hostname",
+                          "address": "tyr1-p151emx"
+                        }
+                      ],
+                      "daemonEndpoints": {
+                        "kubeletEndpoint": {
+                          "Port": 10250
+                        }
+                      },
+                      "nodeInfo": {
+                        "machineID": "28f43a51f67d486680a081318d5a8368",
+                        "systemUUID": "cff59000-8f6d-0000-0000-000000000000",
+                        "bootID": "03d35fb4-42c5-4536-8ff1-fe3077fe3d7a",
+                        "kernelVersion": "5.0.0-37-generic",
+                        "osImage": "Ubuntu 18.04.3 LTS",
+                        "containerRuntimeVersion": "containerd://1.3.3-k3s2",
+                        "kubeletVersion": "v1.17.4+k3s1",
+                        "kubeProxyVersion": "v1.17.4+k3s1",
+                        "operatingSystem": "linux",
+                        "architecture": "amd64"
+                      },
+                      "images": [
+                        {
+                          "names": [
+                            "k8s.gcr.io/metrics-server-amd64@sha256:c9c4e95068b51d6b33a9dccc61875df07dc650abbf4ac1a19d58b4628f89288b",
+                            "k8s.gcr.io/metrics-server-amd64:v0.3.6"
+                          ],
+                          "sizeBytes": 10542830
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/klipper-lb@sha256:2fb97818f5d64096d635bc72501a6cb2c8b88d5d16bc031cf71b5b6460925e4a",
+                            "docker.io/rancher/klipper-lb:v0.1.2"
+                          ],
+                          "sizeBytes": 2708293
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/pause@sha256:d22591b61e9c2b52aecbf07106d5db313c4f178e404d660b32517b18fcbf0144",
+                            "docker.io/rancher/pause:3.1"
+                          ],
+                          "sizeBytes": 326597
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "metadata": {
+                      "name": "raspberrypi",
+                      "selfLink": "/api/v1/nodes/raspberrypi",
+                      "uid": "c35e68f7-0d35-40eb-b0cb-d2d2fd62b1fb",
+                      "resourceVersion": "1086749",
+                      "creationTimestamp": "2020-05-09T17:27:54Z",
+                      "labels": {
+                        "beta.kubernetes.io/arch": "arm",
+                        "beta.kubernetes.io/instance-type": "k3s",
+                        "beta.kubernetes.io/os": "linux",
+                        "k3s.io/hostname": "raspberrypi",
+                        "k3s.io/internal-ip": "192.168.2.187",
+                        "kubernetes.io/arch": "arm",
+                        "kubernetes.io/hostname": "raspberrypi",
+                        "kubernetes.io/os": "linux",
+                        "node-role.kubernetes.io/master": "true",
+                        "node.kubernetes.io/instance-type": "k3s"
+                      },
+                      "annotations": {
+                        "flannel.alpha.coreos.com/backend-data": "{\"VtepMAC\":\"06:5c:0d:c6:78:e2\"}",
+                        "flannel.alpha.coreos.com/backend-type": "vxlan",
+                        "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                        "flannel.alpha.coreos.com/public-ip": "192.168.2.187",
+                        "k3s.io/node-args": "[\"server\"]",
+                        "k3s.io/node-config-hash": "VBTAQK6AEMUD5MSR3MIQ7D6KGCKJ3KP6QIWNJJJOPVU5EYPQRNZQ====",
+                        "k3s.io/node-env": "{\"K3S_DATA_DIR\":\"/var/lib/rancher/k3s/data/0d6b3c3bdce515346f525129585a7d743d4b317feac3b9c71df2fbffbb009b04\"}",
+                        "node.alpha.kubernetes.io/ttl": "0",
+                        "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                      },
+                      "finalizers": [
+                        "wrangler.cattle.io/node"
+                      ]
+                    },
+                    "spec": {
+                      "podCIDR": "10.42.0.0/24",
+                      "podCIDRs": [
+                        "10.42.0.0/24"
+                      ],
+                      "providerID": "k3s://raspberrypi"
+                    },
+                    "status": {
+                      "capacity": {
+                        "cpu": "4",
+                        "ephemeral-storage": "30455712Ki",
+                        "memory": "1985996Ki",
+                        "pods": "110"
+                      },
+                      "allocatable": {
+                        "cpu": "4",
+                        "ephemeral-storage": "29627316611",
+                        "memory": "1985996Ki",
+                        "pods": "110"
+                      },
+                      "conditions": [
+                        {
+                          "type": "NetworkUnavailable",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-09T17:28:07Z",
+                          "lastTransitionTime": "2020-05-09T17:28:07Z",
+                          "reason": "FlannelIsUp",
+                          "message": "Flannel is running on this node"
+                        },
+                        {
+                          "type": "MemoryPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                          "lastTransitionTime": "2020-05-09T17:27:54Z",
+                          "reason": "KubeletHasSufficientMemory",
+                          "message": "kubelet has sufficient memory available"
+                        },
+                        {
+                          "type": "DiskPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                          "lastTransitionTime": "2020-05-09T17:27:54Z",
+                          "reason": "KubeletHasNoDiskPressure",
+                          "message": "kubelet has no disk pressure"
+                        },
+                        {
+                          "type": "PIDPressure",
+                          "status": "False",
+                          "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                          "lastTransitionTime": "2020-05-09T17:27:54Z",
+                          "reason": "KubeletHasSufficientPID",
+                          "message": "kubelet has sufficient PID available"
+                        },
+                        {
+                          "type": "Ready",
+                          "status": "True",
+                          "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                          "lastTransitionTime": "2020-05-09T17:28:04Z",
+                          "reason": "KubeletReady",
+                          "message": "kubelet is posting ready status. WARNING: CPU hardcapping unsupported"
+                        }
+                      ],
+                      "addresses": [
+                        {
+                          "type": "InternalIP",
+                          "address": "192.168.2.187"
+                        },
+                        {
+                          "type": "Hostname",
+                          "address": "raspberrypi"
+                        }
+                      ],
+                      "daemonEndpoints": {
+                        "kubeletEndpoint": {
+                          "Port": 10250
+                        }
+                      },
+                      "nodeInfo": {
+                        "machineID": "3a0c01ecee37492d9c04811d344e1b7a",
+                        "systemUUID": "3a0c01ecee37492d9c04811d344e1b7a",
+                        "bootID": "bc241961-872e-45cd-a753-1f8a98e9e920",
+                        "kernelVersion": "4.19.97-v7l+",
+                        "osImage": "Raspbian GNU/Linux 10 (buster)",
+                        "containerRuntimeVersion": "containerd://1.3.3-k3s2",
+                        "kubeletVersion": "v1.17.4+k3s1",
+                        "kubeProxyVersion": "v1.17.4+k3s1",
+                        "operatingSystem": "linux",
+                        "architecture": "arm"
+                      },
+                      "images": [
+                        {
+                          "names": [
+                            "docker.io/kubernetesui/dashboard@sha256:06868692fb9a7f2ede1a06de1b7b32afabc40ec739c1181d83b5ed3eb147ec6e",
+                            "docker.io/kubernetesui/dashboard:v2.0.0"
+                          ],
+                          "sizeBytes": 64922272
+                        },
+                        {
+                          "names": [
+                            "docker.io/paulbouwer/hello-kubernetes@sha256:6516f998c9ab0c5be8a24e4d696ec1e818ede3ec5a0710e8ff5115f0ed89e3b4",
+                            "docker.io/paulbouwer/hello-kubernetes:1.8"
+                          ],
+                          "sizeBytes": 45050991
+                        },
+                        {
+                          "names": [
+                            "docker.io/library/nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12",
+                            "docker.io/library/nginx:latest"
+                          ],
+                          "sizeBytes": 44973694
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/klipper-helm@sha256:a7c8cc34edc89609c1b11c1ab212962d437414e5542a8fa059df2936aaa1c06f",
+                            "docker.io/rancher/klipper-helm:v0.2.3"
+                          ],
+                          "sizeBytes": 43923557
+                        },
+                        {
+                          "names": [
+                            "docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d",
+                            "docker.io/library/nginx:1.14.2"
+                          ],
+                          "sizeBytes": 40138536
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/library-traefik@sha256:3ba3ed48c4632f2b02671923950b30b5b7f1b556e559ce15446d1f5d648a037d",
+                            "docker.io/rancher/library-traefik:1.7.19"
+                          ],
+                          "sizeBytes": 22497771
+                        },
+                        {
+                          "names": [
+                            "docker.io/kubernetesui/metrics-scraper@sha256:555981a24f184420f3be0c79d4efb6c948a85cfce84034f85a563f4151a81cbf",
+                            "docker.io/kubernetesui/metrics-scraper:v1.0.4"
+                          ],
+                          "sizeBytes": 14772102
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/coredns-coredns@sha256:cfa7236dab4e3860881fdf755880ff8361e42f6cba2e3775ae48e2d46d22f7ba",
+                            "docker.io/rancher/coredns-coredns:1.6.3"
+                          ],
+                          "sizeBytes": 13271957
+                        },
+                        {
+                          "names": [
+                            "quay.io/jetstack/cert-manager-controller@sha256:eab95c0d67dfe5a0b0474e71a255e809965d2d000018a3f84df1d5ef27b12164",
+                            "quay.io/jetstack/cert-manager-controller:v0.12.0"
+                          ],
+                          "sizeBytes": 13203230
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/local-path-provisioner@sha256:0d60b97b101e432606035ab955c623604493e8956484af1cfa207753329bdf81",
+                            "docker.io/rancher/local-path-provisioner:v0.0.11"
+                          ],
+                          "sizeBytes": 11147855
+                        },
+                        {
+                          "names": [
+                            "quay.io/jetstack/cert-manager-cainjector@sha256:9ff6923f6c567573103816796df283d03256bc7a9edb7450542e106b349cf34a",
+                            "quay.io/jetstack/cert-manager-cainjector:v0.12.0"
+                          ],
+                          "sizeBytes": 10476949
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/metrics-server@sha256:b85628b103169d7db52a32a48b46d8942accb7bde3709c0a4888a23d035f9f1e",
+                            "docker.io/rancher/metrics-server:v0.3.6"
+                          ],
+                          "sizeBytes": 10158796
+                        },
+                        {
+                          "names": [
+                            "quay.io/jetstack/cert-manager-webhook@sha256:f3b58247c674937deab9ae9603a2f2bf332bdd31a0e4f7928b52f7abfe653f15",
+                            "quay.io/jetstack/cert-manager-webhook:v0.12.0"
+                          ],
+                          "sizeBytes": 8109212
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/klipper-lb@sha256:2fb97818f5d64096d635bc72501a6cb2c8b88d5d16bc031cf71b5b6460925e4a",
+                            "docker.io/rancher/klipper-lb:v0.1.2"
+                          ],
+                          "sizeBytes": 2583746
+                        },
+                        {
+                          "names": [
+                            "docker.io/rancher/pause@sha256:d22591b61e9c2b52aecbf07106d5db313c4f178e404d660b32517b18fcbf0144",
+                            "docker.io/rancher/pause:3.1"
+                          ],
+                          "sizeBytes": 231252
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/nodes/raspberrypi"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "result": {
+                "metadata": {
+                  "name": "raspberrypi",
+                  "selfLink": "/api/v1/nodes/raspberrypi",
+                  "uid": "c35e68f7-0d35-40eb-b0cb-d2d2fd62b1fb",
+                  "resourceVersion": "1086749",
+                  "creationTimestamp": "2020-05-09T17:27:54Z",
+                  "labels": {
+                    "beta.kubernetes.io/arch": "arm",
+                    "beta.kubernetes.io/instance-type": "k3s",
+                    "beta.kubernetes.io/os": "linux",
+                    "k3s.io/hostname": "raspberrypi",
+                    "k3s.io/internal-ip": "192.168.2.187",
+                    "kubernetes.io/arch": "arm",
+                    "kubernetes.io/hostname": "raspberrypi",
+                    "kubernetes.io/os": "linux",
+                    "node-role.kubernetes.io/master": "true",
+                    "node.kubernetes.io/instance-type": "k3s"
+                  },
+                  "annotations": {
+                    "flannel.alpha.coreos.com/backend-data": "{\"VtepMAC\":\"06:5c:0d:c6:78:e2\"}",
+                    "flannel.alpha.coreos.com/backend-type": "vxlan",
+                    "flannel.alpha.coreos.com/kube-subnet-manager": "true",
+                    "flannel.alpha.coreos.com/public-ip": "192.168.2.187",
+                    "k3s.io/node-args": "[\"server\"]",
+                    "k3s.io/node-config-hash": "VBTAQK6AEMUD5MSR3MIQ7D6KGCKJ3KP6QIWNJJJOPVU5EYPQRNZQ====",
+                    "k3s.io/node-env": "{\"K3S_DATA_DIR\":\"/var/lib/rancher/k3s/data/0d6b3c3bdce515346f525129585a7d743d4b317feac3b9c71df2fbffbb009b04\"}",
+                    "node.alpha.kubernetes.io/ttl": "0",
+                    "volumes.kubernetes.io/controller-managed-attach-detach": "true"
+                  },
+                  "finalizers": [
+                    "wrangler.cattle.io/node"
+                  ]
+                },
+                "spec": {
+                  "podCIDR": "10.42.0.0/24",
+                  "podCIDRs": [
+                    "10.42.0.0/24"
+                  ],
+                  "providerID": "k3s://raspberrypi"
+                },
+                "status": {
+                  "capacity": {
+                    "cpu": "4",
+                    "ephemeral-storage": "30455712Ki",
+                    "memory": "1985996Ki",
+                    "pods": "110"
+                  },
+                  "allocatable": {
+                    "cpu": "4",
+                    "ephemeral-storage": "29627316611",
+                    "memory": "1985996Ki",
+                    "pods": "110"
+                  },
+                  "conditions": [
+                    {
+                      "type": "NetworkUnavailable",
+                      "status": "False",
+                      "lastHeartbeatTime": "2020-05-09T17:28:07Z",
+                      "lastTransitionTime": "2020-05-09T17:28:07Z",
+                      "reason": "FlannelIsUp",
+                      "message": "Flannel is running on this node"
+                    },
+                    {
+                      "type": "MemoryPressure",
+                      "status": "False",
+                      "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                      "lastTransitionTime": "2020-05-09T17:27:54Z",
+                      "reason": "KubeletHasSufficientMemory",
+                      "message": "kubelet has sufficient memory available"
+                    },
+                    {
+                      "type": "DiskPressure",
+                      "status": "False",
+                      "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                      "lastTransitionTime": "2020-05-09T17:27:54Z",
+                      "reason": "KubeletHasNoDiskPressure",
+                      "message": "kubelet has no disk pressure"
+                    },
+                    {
+                      "type": "PIDPressure",
+                      "status": "False",
+                      "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                      "lastTransitionTime": "2020-05-09T17:27:54Z",
+                      "reason": "KubeletHasSufficientPID",
+                      "message": "kubelet has sufficient PID available"
+                    },
+                    {
+                      "type": "Ready",
+                      "status": "True",
+                      "lastHeartbeatTime": "2020-05-16T21:34:24Z",
+                      "lastTransitionTime": "2020-05-09T17:28:04Z",
+                      "reason": "KubeletReady",
+                      "message": "kubelet is posting ready status. WARNING: CPU hardcapping unsupported"
+                    }
+                  ],
+                  "addresses": [
+                    {
+                      "type": "InternalIP",
+                      "address": "192.168.2.187"
+                    },
+                    {
+                      "type": "Hostname",
+                      "address": "raspberrypi"
+                    }
+                  ],
+                  "daemonEndpoints": {
+                    "kubeletEndpoint": {
+                      "Port": 10250
+                    }
+                  },
+                  "nodeInfo": {
+                    "machineID": "3a0c01ecee37492d9c04811d344e1b7a",
+                    "systemUUID": "3a0c01ecee37492d9c04811d344e1b7a",
+                    "bootID": "bc241961-872e-45cd-a753-1f8a98e9e920",
+                    "kernelVersion": "4.19.97-v7l+",
+                    "osImage": "Raspbian GNU/Linux 10 (buster)",
+                    "containerRuntimeVersion": "containerd://1.3.3-k3s2",
+                    "kubeletVersion": "v1.17.4+k3s1",
+                    "kubeProxyVersion": "v1.17.4+k3s1",
+                    "operatingSystem": "linux",
+                    "architecture": "arm"
+                  },
+                  "images": [
+                    {
+                      "names": [
+                        "docker.io/kubernetesui/dashboard@sha256:06868692fb9a7f2ede1a06de1b7b32afabc40ec739c1181d83b5ed3eb147ec6e",
+                        "docker.io/kubernetesui/dashboard:v2.0.0"
+                      ],
+                      "sizeBytes": 64922272
+                    },
+                    {
+                      "names": [
+                        "docker.io/paulbouwer/hello-kubernetes@sha256:6516f998c9ab0c5be8a24e4d696ec1e818ede3ec5a0710e8ff5115f0ed89e3b4",
+                        "docker.io/paulbouwer/hello-kubernetes:1.8"
+                      ],
+                      "sizeBytes": 45050991
+                    },
+                    {
+                      "names": [
+                        "docker.io/library/nginx@sha256:86ae264c3f4acb99b2dee4d0098c40cb8c46dcf9e1148f05d3a51c4df6758c12",
+                        "docker.io/library/nginx:latest"
+                      ],
+                      "sizeBytes": 44973694
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/klipper-helm@sha256:a7c8cc34edc89609c1b11c1ab212962d437414e5542a8fa059df2936aaa1c06f",
+                        "docker.io/rancher/klipper-helm:v0.2.3"
+                      ],
+                      "sizeBytes": 43923557
+                    },
+                    {
+                      "names": [
+                        "docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d",
+                        "docker.io/library/nginx:1.14.2"
+                      ],
+                      "sizeBytes": 40138536
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/library-traefik@sha256:3ba3ed48c4632f2b02671923950b30b5b7f1b556e559ce15446d1f5d648a037d",
+                        "docker.io/rancher/library-traefik:1.7.19"
+                      ],
+                      "sizeBytes": 22497771
+                    },
+                    {
+                      "names": [
+                        "docker.io/kubernetesui/metrics-scraper@sha256:555981a24f184420f3be0c79d4efb6c948a85cfce84034f85a563f4151a81cbf",
+                        "docker.io/kubernetesui/metrics-scraper:v1.0.4"
+                      ],
+                      "sizeBytes": 14772102
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/coredns-coredns@sha256:cfa7236dab4e3860881fdf755880ff8361e42f6cba2e3775ae48e2d46d22f7ba",
+                        "docker.io/rancher/coredns-coredns:1.6.3"
+                      ],
+                      "sizeBytes": 13271957
+                    },
+                    {
+                      "names": [
+                        "quay.io/jetstack/cert-manager-controller@sha256:eab95c0d67dfe5a0b0474e71a255e809965d2d000018a3f84df1d5ef27b12164",
+                        "quay.io/jetstack/cert-manager-controller:v0.12.0"
+                      ],
+                      "sizeBytes": 13203230
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/local-path-provisioner@sha256:0d60b97b101e432606035ab955c623604493e8956484af1cfa207753329bdf81",
+                        "docker.io/rancher/local-path-provisioner:v0.0.11"
+                      ],
+                      "sizeBytes": 11147855
+                    },
+                    {
+                      "names": [
+                        "quay.io/jetstack/cert-manager-cainjector@sha256:9ff6923f6c567573103816796df283d03256bc7a9edb7450542e106b349cf34a",
+                        "quay.io/jetstack/cert-manager-cainjector:v0.12.0"
+                      ],
+                      "sizeBytes": 10476949
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/metrics-server@sha256:b85628b103169d7db52a32a48b46d8942accb7bde3709c0a4888a23d035f9f1e",
+                        "docker.io/rancher/metrics-server:v0.3.6"
+                      ],
+                      "sizeBytes": 10158796
+                    },
+                    {
+                      "names": [
+                        "quay.io/jetstack/cert-manager-webhook@sha256:f3b58247c674937deab9ae9603a2f2bf332bdd31a0e4f7928b52f7abfe653f15",
+                        "quay.io/jetstack/cert-manager-webhook:v0.12.0"
+                      ],
+                      "sizeBytes": 8109212
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/klipper-lb@sha256:2fb97818f5d64096d635bc72501a6cb2c8b88d5d16bc031cf71b5b6460925e4a",
+                        "docker.io/rancher/klipper-lb:v0.1.2"
+                      ],
+                      "sizeBytes": 2583746
+                    },
+                    {
+                      "names": [
+                        "docker.io/rancher/pause@sha256:d22591b61e9c2b52aecbf07106d5db313c4f178e404d660b32517b18fcbf0144",
+                        "docker.io/rancher/pause:3.1"
+                      ],
+                      "sizeBytes": 231252
+                    }
+                  ]
                 }
-              ]
-            }
-          }
-        }
-      ]
-    },
-    {
-      "predicates": [
-        {
-          "equals": {
-            "method": "GET",
-            "path": "/api/v1/nodes/node1"
-          }
-        }
-      ],
-      "responses": [
-        {
-          "is": {
-            "statusCode": 200,
-            "headers": {
-              "Content-Type": "application/json"
-            },
-            "body": {
-              "name": "node1"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "predicates": [
-        {
-          "equals": {
-            "method": "GET",
-            "path": "/api/v1/nodes/node2"
-          }
-        }
-      ],
-      "responses": [
-        {
-          "is": {
-            "statusCode": 200,
-            "headers": {
-              "Content-Type": "application/json"
-            },
-            "body": {
-              "name": "node2"
+              }
             }
           }
         }

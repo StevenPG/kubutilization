@@ -18,11 +18,13 @@ func parseFlagUseExternalConnection() *bool {
 // registerEndpoints ... Add configured endpoints to Gin Engine
 func registerEndpoints(engine *gin.Engine) {
 	endpoint.RegisterUtilityEndpoints(engine)
+	endpoint.RegisterMetricsEndpoints(engine)
+	endpoint.RegisterNamespaceEndpoints(engine)
 	endpoint.RegisterNodeEndpoints(engine)
 	endpoint.RegisterPodEndpoints(engine)
 }
 
-// main ... application entrypoint
+// main ... application entry point
 func main() {
 	if *parseFlagUseExternalConnection() {
 		ginRouter := middleware.GinRouter(client.ExternalConnection())
