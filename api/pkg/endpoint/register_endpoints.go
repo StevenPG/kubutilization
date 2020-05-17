@@ -6,6 +6,7 @@ import "github.com/gin-gonic/gin"
 func RegisterUtilityEndpoints(gin *gin.Engine) {
 	gin.GET("/api/health", HealthCheck)
 	gin.GET("/api/kubehealth", KubernetesConnectionHealthCheck)
+	gin.GET("/api/redishealth", RedisHealthcheck)
 }
 
 // RegisterMetricsEndpoints ... return the root of the metrics endpoint

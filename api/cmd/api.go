@@ -6,13 +6,15 @@ import (
 	"github.com/stevenpg/kubutilization/api/pkg/client"
 	"github.com/stevenpg/kubutilization/api/pkg/endpoint"
 	"github.com/stevenpg/kubutilization/api/pkg/middleware"
+	"github.com/stevenpg/kubutilization/api/pkg/timeseries/writes"
 )
 
 // parseFlagUseExternalConnection ... Initializes are parses flags, returning the ptrs to caller
-func parseFlagUseExternalConnection() *bool {
+func parseInputFlags() (*bool, *bool) {
 	externalConnection := flag.Bool("external", false, "a boolean selector for whether to search for a kubeconfig in ~/.kube/config")
+	enableRedis := flag.Bool("timeseries", false, "a boolean selector for whether to connect to redis and write time-series data")
 	flag.Parse()
-	return externalConnection
+	return externalConnection, enableRedis
 }
 
 // registerEndpoints ... Add configured endpoints to Gin Engine
@@ -26,9 +28,16 @@ func registerEndpoints(engine *gin.Engine) {
 
 // main ... application entry point
 func main() {
-	if *parseFlagUseExternalConnection() {
-		ginRouter := middleware.GinRouter(client.ExternalConnection())
+	useExternal, enableTS := parseInputFlags()
+	if *useExternal {
+		client := client.ExternalConnection()
+		ginRouter := middleware.GinRouter(client)
 		registerEndpoints(ginRouter)
+
+		if *enableTS {
+			writes.StartNodeWrites(client)
+		}
+
 		ginRouter.Run(":8080")
 	} else {
 		client.Connection()

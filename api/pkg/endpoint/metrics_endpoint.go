@@ -2,10 +2,9 @@ package endpoint
 
 import (
 	"context"
-	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"github.com/stevenpg/kubutilization/api/pkg/client"
 	"k8s.io/client-go/kubernetes"
-	"net/http"
 )
 
 /**
@@ -25,14 +24,14 @@ import (
 func MetricsRoot(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1").DoRaw(context.TODO())
-	marshalAndSetJson(c, data)
+	client.MarshalAndSetJson(c, data)
 }
 
 // NodesRoot ... Return the nodes endpoint
 func NodesRoot(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/nodes").DoRaw(context.TODO())
-	marshalAndSetJson(c, data)
+	client.MarshalAndSetJson(c, data)
 }
 
 // SpecificNode ... Returns the metrics results for a specific node
@@ -40,27 +39,12 @@ func SpecificNode(c *gin.Context) {
 	node := c.Param("node")
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/nodes/" + node).DoRaw(context.TODO())
-	marshalAndSetJson(c, data)
+	client.MarshalAndSetJson(c, data)
 }
 
 // PodsRoot ... Return pods metrics endpoint from all namespaces
 func PodsRoot(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/pods").DoRaw(context.TODO())
-	marshalAndSetJson(c, data)
-}
-
-// helper method that un-marshals JSON and returns to browser
-func marshalAndSetJson(c *gin.Context, data []byte) {
-	var raw map[string]interface{}
-
-	if err := json.Unmarshal(data, &raw); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"result": "Something went wrong unmarshalling the data from kubernetes!",
-		})
-	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"result": raw,
-		})
-	}
+	client.MarshalAndSetJson(c, data)
 }
