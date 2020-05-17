@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stevenpg/kubutilization/api/pkg/client"
 	"k8s.io/client-go/kubernetes"
+	"net/http"
 )
 
 /**
@@ -50,4 +51,34 @@ func PodsRoot(c *gin.Context) {
 	connection := c.MustGet("clientset").(kubernetes.Clientset)
 	data, _ := connection.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/pods").DoRaw(context.TODO())
 	client.MarshalAndSetJson(c, data)
+}
+
+// HistoricalNodeCPU ... returns Node CPU data in time-series format for given Node
+func HistoricalNodeCPU(c *gin.Context) {
+	node := c.Param("node")
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"result": node,
+	})
+}
+
+// AverageNodeCPU ... Gives average over last 60s of time series data for input node CPU
+func AverageNodeCPU(c *gin.Context) {
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"result": "tmp",
+	})
+}
+
+// HistoricalNodeMem ... returns Node Mem data in time-series format for given Node
+func HistoricalNodeMem(c *gin.Context) {
+	node := c.Param("node")
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"result": node,
+	})
+}
+
+// AverageNodeMem ... Gives average over last 60s of time series data for input node Mem
+func AverageNodeMem(c *gin.Context) {
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"result": "tmp",
+	})
 }

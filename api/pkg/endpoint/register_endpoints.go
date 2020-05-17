@@ -16,7 +16,10 @@ func RegisterMetricsEndpoints(gin *gin.Engine) {
 	gin.GET("/api/v1/metrics/nodes/:node", SpecificNode)
 	gin.GET("/api/v1/metrics/pods", PodsRoot)
 
-	//gin.GET("/api/v1/metrics/ts/nodes", "")
+	gin.GET("/api/v1/metrics/ts/nodes/:node/cpu", HistoricalNodeCPU)
+	gin.GET("/api/v1/metrics/ts/nodes/:node/cpu/average", AverageNodeCPU)
+	gin.GET("/api/v1/metrics/ts/nodes/:node/mem", HistoricalNodeCPU)
+	gin.GET("/api/v1/metrics/ts/nodes/:node/mem/average", AverageNodeCPU)
 
 }
 

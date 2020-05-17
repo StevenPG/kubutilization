@@ -20,8 +20,7 @@ func PollAndPushMetrics(clientset *kubernetes.Clientset, redisConnection *redis.
 	for ok := true; ok; ok = unlimitedRuntime {
 
 		// TODO - make time configurable via Viper config file
-		//time.Sleep(30 * time.Second)
-		time.Sleep(5 * time.Second)
+		time.Sleep(30 * time.Second)
 		redisConnection.Ping()
 
 		data, _ := clientset.RESTClient().Get().AbsPath("apis/metrics.k8s.io/v1beta1/nodes").DoRaw(context.TODO())
