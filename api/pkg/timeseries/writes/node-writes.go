@@ -18,6 +18,8 @@ var (
 // PollAndPushMetrics ... wait every N seconds and push metrics
 func PollAndPushMetrics(clientset *kubernetes.Clientset) {
 	redisConnection := metricsInitHelper()
+	// TODO - Handle redis connection failed, don't crash
+	// just output error and ignore
 
 	var unlimitedRuntime = true
 	for ok := true; ok; ok = unlimitedRuntime {
