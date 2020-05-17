@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	// Utilized to generate unique IDs for node writes
 	counter = 0
 )
 
