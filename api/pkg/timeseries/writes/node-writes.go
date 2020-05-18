@@ -53,8 +53,8 @@ func buildEntities(metrics models.NodeMetrics) []models.NodeMetricsEntity {
 func writeEntities(connection *redistimeseries.Client, entities []models.NodeMetricsEntity) {
 	CheckAndInitTSKeys(connection, entities)
 	for i := range entities {
-		cpuEntityKey := generateCpuKey(entities[i].MetricsType, entities[i].Name)
-		memEntityKey := generateMemKey(entities[i].MetricsType, entities[i].Name)
+		cpuEntityKey := GenerateCpuKey(entities[i].MetricsType, entities[i].Name)
+		memEntityKey := GenerateMemKey(entities[i].MetricsType, entities[i].Name)
 
 		jsonEntity, _ := json.Marshal(entities[i])
 		// TODO - set global duration configuration property, default 6h
@@ -84,7 +84,7 @@ func writeEntities(connection *redistimeseries.Client, entities []models.NodeMet
 // CheckAndInitKeys ... Receives a redis time series connection, verifies and creates keys if they don't exist
 func CheckAndInitTSKeys(connection *redistimeseries.Client, entities []models.NodeMetricsEntity) {
 	for i := range entities {
-		cpuEntityKey := generateCpuKey(entities[i].MetricsType, entities[i].Name)
+		cpuEntityKey := GenerateCpuKey(entities[i].MetricsType, entities[i].Name)
 		_, cpuIsPresent := connection.Info(cpuEntityKey)
 		if cpuIsPresent != nil {
 			// TODO - make timeouts configurable
@@ -93,7 +93,7 @@ func CheckAndInitTSKeys(connection *redistimeseries.Client, entities []models.No
 			connection.CreateRule(cpuEntityKey, redistimeseries.AvgAggregation, 60, cpuEntityKey+"_avg")
 		}
 
-		memEntityKey := generateMemKey(entities[i].MetricsType, entities[i].Name)
+		memEntityKey := GenerateMemKey(entities[i].MetricsType, entities[i].Name)
 		_, memIsPresent := connection.Info(memEntityKey)
 		if memIsPresent != nil {
 			// TODO - make timeouts configurable
@@ -104,12 +104,12 @@ func CheckAndInitTSKeys(connection *redistimeseries.Client, entities []models.No
 	}
 }
 
-// Helper functions to keep functions aligned when generating CPU key
-func generateCpuKey(metricsType string, name string) string {
+// GenerateCpuKey ... Helper functions to keep functions aligned when generating CPU key
+func GenerateCpuKey(metricsType string, name string) string {
 	return fmt.Sprintf("%s:%s:CPU", metricsType, name)
 }
 
-// Helper functions to keep functions aligned when generating Mem key
-func generateMemKey(metricsType string, name string) string {
+// GenerateMemKey ... Helper functions to keep functions aligned when generating Mem key
+func GenerateMemKey(metricsType string, name string) string {
 	return fmt.Sprintf("%s:%s:Memory", metricsType, name)
 }

@@ -2,9 +2,14 @@ package endpoint
 
 import (
 	"context"
+	"fmt"
+	redistimeseries "github.com/RedisTimeSeries/redistimeseries-go"
 	"github.com/gin-gonic/gin"
 	"github.com/stevenpg/kubutilization/api/pkg/client"
+	"github.com/stevenpg/kubutilization/api/pkg/timeseries/models"
+	"github.com/stevenpg/kubutilization/api/pkg/timeseries/writes"
 	"k8s.io/client-go/kubernetes"
+	"math"
 	"net/http"
 )
 
@@ -53,6 +58,7 @@ func PodsRoot(c *gin.Context) {
 	client.MarshalAndSetJson(c, data)
 }
 
+// TODO
 // HistoricalNodeCPU ... returns Node CPU data in time-series format for given Node
 func HistoricalNodeCPU(c *gin.Context) {
 	node := c.Param("node")
@@ -61,24 +67,67 @@ func HistoricalNodeCPU(c *gin.Context) {
 	})
 }
 
+// TODO
 // AverageNodeCPU ... Gives average over last 60s of time series data for input node CPU
 func AverageNodeCPU(c *gin.Context) {
-	c.JSON(http.StatusInternalServerError, gin.H{
-		"result": "tmp",
+	tsRedis := c.MustGet("tsRedis").(*redistimeseries.Client)
+	node := c.Param("node")
+	endpoint := fmt.Sprintf("%s_avg", writes.GenerateCpuKey("Node", node))
+	dataPoint, _ := tsRedis.Get(endpoint)
+	c.JSON(http.StatusOK, gin.H{
+		"node":          node,
+		"raw_format":    "nanocpu",
+		"raw_result":    *dataPoint,
+		"value_in_mCpu": convertNanoCPUToMicroCPU(dataPoint.Value),
 	})
 }
 
+//TODO
 // HistoricalNodeMem ... returns Node Mem data in time-series format for given Node
 func HistoricalNodeMem(c *gin.Context) {
 	node := c.Param("node")
-	c.JSON(http.StatusInternalServerError, gin.H{
-		"result": node,
-	})
+	var timeRange models.TimeRangeURLInput
+	if c.Bind(&timeRange) == nil {
+		if timeRange.From == 0 || timeRange.To == 0 {
+			// Ignore Inputs
+			c.JSON(http.StatusOK, gin.H{
+				"result":        node,
+				"single-result": "stuff and things",
+			})
+		} else {
+			c.JSON(http.StatusOK, gin.H{
+				"result": node,
+				"from":   timeRange.From,
+				"to":     timeRange.To,
+			})
+		}
+
+	}
 }
 
 // AverageNodeMem ... Gives average over last 60s of time series data for input node Mem
 func AverageNodeMem(c *gin.Context) {
-	c.JSON(http.StatusInternalServerError, gin.H{
-		"result": "tmp",
+	tsRedis := c.MustGet("tsRedis").(*redistimeseries.Client)
+	node := c.Param("node")
+	endpoint := fmt.Sprintf("%s_avg", writes.GenerateMemKey("Node", node))
+	dataPoint, _ := tsRedis.Get(endpoint)
+	c.JSON(http.StatusOK, gin.H{
+		"node":        node,
+		"raw_format":  "Ki",
+		"raw_result":  *dataPoint,
+		"value_in_Mi": convertKiToMiHelper(dataPoint.Value),
+		"value_in_MB": convertKiToMBHelper(dataPoint.Value),
 	})
+}
+
+func convertNanoCPUToMicroCPU(nanoCpu float64) float64 {
+	return math.Round(nanoCpu / 1_000_000)
+}
+
+func convertKiToMiHelper(kibibytes float64) float64 {
+	return math.Round(kibibytes / 1024)
+}
+
+func convertKiToMBHelper(kibibytes float64) float64 {
+	return math.Round(kibibytes / 977)
 }
