@@ -1,0 +1,377 @@
+{
+	"info": {
+		"_postman_id": "43facc52-7b7b-4391-b13d-e1a5bcf894d6",
+		"name": "Kubutilization",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/health",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/kubehealth",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/kubehealth",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"kubehealth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/metrics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/metrics",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/metrics/nodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/metrics/nodes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"metrics",
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/metrics/nodes/{{NODE}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/metrics/nodes/{{NODE}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"metrics",
+						"nodes",
+						"{{NODE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/metrics/pods",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/metrics/pods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"metrics",
+						"pods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/nodes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/nodes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"nodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/nodes/specific-node",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "37ca67ad-6fb8-4ac8-a56b-c2c95bef2a62",
+						"exec": [
+							"pm.sendRequest(\"localhost:8080/api/v1/nodes\", function (err, response) {\r",
+							"    pm.environment.set(\"NODE\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/nodes/{{NODE}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"nodes",
+						"{{NODE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/pods",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/pods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"pods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/namespaces/specific-namespace/pods",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3f450e00-9968-4a85-9124-f0567dd91482",
+						"exec": [
+							"pm.sendRequest(\"localhost:8080/api/v1/namespaces\", function (err, response) {\r",
+							"    pm.environment.set(\"NAMESPACE\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/namespaces/{{NAMESPACE}}/pods",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"namespaces",
+						"{{NAMESPACE}}",
+						"pods"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/namespaces/specific-namespace/pods/specific-pod",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ca940419-c910-4161-a539-2c1e9fb1fe16",
+						"exec": [
+							"let namespace = \"\"\r",
+							"pm.sendRequest(\"localhost:8080/api/v1/namespaces\", function (err, response) {\r",
+							"    pm.environment.set(\"NAMESPACE\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"    namespace = String(response.json()['result']['items'][0]['metadata']['name'])\r",
+							"    pm.sendRequest(\"localhost:8080/api/v1/namespaces/\" + namespace + \"/pods\", function (err, response) {\r",
+							"        pm.environment.set(\"POD\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"    });\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/namespaces/{{NAMESPACE}}/pods/{{POD}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"namespaces",
+						"{{NAMESPACE}}",
+						"pods",
+						"{{POD}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/metrics/nodes/specific-node",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "92f30479-faf6-4497-a35d-ae777a3d797a",
+						"exec": [
+							"pm.sendRequest(\"localhost:8080/api/v1/nodes\", function (err, response) {\r",
+							"    pm.environment.set(\"NODE\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/metrics/nodes/{{NODE}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"metrics",
+						"nodes",
+						"{{NODE}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/namespaces",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/namespaces",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"namespaces"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/v1/namespaces/specific-namespace",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "20cf56a8-44fb-420d-af4a-7db8760b3bc6",
+						"exec": [
+							"pm.sendRequest(\"localhost:8080/api/v1/namespaces\", function (err, response) {\r",
+							"    pm.environment.set(\"NAMESPACE\", String(response.json()['result']['items'][0]['metadata']['name']));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/namespaces/{{NAMESPACE}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"namespaces",
+						"{{NAMESPACE}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -1,0 +1,36 @@
+{
+  "port": ----,
+  "protocol": "http",
+  "name": "kubutilization API Stubs - name",
+  "recordRequests": "true",
+  "defaultResponse": {
+    "statusCode": 400,
+    "body": "Bad Request",
+    "headers": {}
+  },
+  "stubs": [
+    {
+      "predicates": [
+        {
+          "equals": {
+            "method": "GET",
+            "path": "/api/v1/---"
+          }
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
